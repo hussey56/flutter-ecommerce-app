@@ -1,0 +1,91 @@
+name: ecom3
+description: A new Flutter project.
+
+publish_to: 'none'
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.5 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+#----------------PACKAGES-------------------#
+  iconsax: ^0.0.8
+  cupertino_icons: ^1.0.2
+  
+#---UTILITY PACKAGES --------#
+  http: ^1.1.0
+  intl: ^0.18.1
+  logger: ^2.0.1
+  url_launcher: ^6.1.12
+  flutter_native_splash: ^2.3.5
+  smooth_page_indicator: ^1.1.0
+  lottie: ^3.0.0
+  connectivity_plus: ^5.0.2
+
+#----state mangement------------#
+
+  get: ^4.6.5
+  get_storage: ^2.1.1
+  shared_preferences: ^2.2.2
+#--Product Specific packages#
+  readmore: ^2.2.0
+  carousel_slider: ^4.2.1
+  flutter_rating_bar: ^4.0.1
+
+#---firebase
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
+  google_sign_in: ^6.2.1
+
+#----------------PACKAGES-------------------#
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  #============= LOCAL ASSETS ===========#
+  assets:
+  - assets/logos/
+  - assets/icons/
+  - assets/images/onboarding_images/
+  - assets/images/animations/
+  - assets/images/banners/
+  - assets/icons/categories/
+  - assets/images/products/
+  - assets/images/user/
+
+  #----------------- LOCAL ASSETS -------------------#
+  fonts:
+  - family: Poppins
+    fonts:
+    - asset: assets/fonts/Poppins-Light.ttf 
+      weight: 300
+    - asset: assets/fonts/Poppins-Regular.ttf 
+      weight: 400
+    - asset: assets/fonts/Poppins-Italic.ttf 
+      style: italic
+    - asset: assets/fonts/Poppins-Medium.ttf 
+      weight: 500  
+    - asset: assets/fonts/Poppins-MediumItalic.ttf 
+      weight: 500
+      style: italic
+    - asset: assets/fonts/Poppins-SemiBold.ttf 
+      weight: 600
+    - asset: assets/fonts/Poppins-Bold.ttf 
+      weight: 800
+
