@@ -1,3 +1,5 @@
+import 'package:ecom3/features/authentication/controllers/forget_password/forget_controller.dart';
+import 'package:ecom3/features/authentication/screens/login/login.dart';
 import 'package:ecom3/utils/constants/image_strings.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
 import 'package:ecom3/utils/constants/text_strings.dart';
@@ -8,7 +10,9 @@ import 'package:get/get.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 
 class ResetPassword extends StatelessWidget {
-  const ResetPassword({super.key});
+  const ResetPassword({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +20,12 @@ class ResetPassword extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(onPressed: ()=> Get.back(), icon: const Icon(CupertinoIcons.clear)),
+          IconButton(
+              onPressed: () => Get.back(),
+              icon: const Icon(CupertinoIcons.clear)),
         ],
       ),
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(HSizes.defaultSpace),
           child: Column(
@@ -34,6 +40,14 @@ class ResetPassword extends StatelessWidget {
               ),
 
               // Title and Sub title
+              Text(
+                email,
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: HSizes.spaceBtwItems,
+              ),
               Text(
                 HTexts.changeYourPasswordTitle,
                 style: Theme.of(context).textTheme.headlineMedium,
@@ -55,7 +69,7 @@ class ResetPassword extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: () => Get.offAll(() => const LoginScreen()),
                   child: const Text("Done"),
                 ),
               ),
@@ -66,7 +80,8 @@ class ResetPassword extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: (){},
+                  onPressed: () => ForgetPasswordController.instance
+                      .resendPasswordResetEmail(email),
                   child: const Text("Resend Email"),
                 ),
               ),

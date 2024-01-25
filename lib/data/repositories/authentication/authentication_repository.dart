@@ -104,7 +104,22 @@ void  screenRedirect() async {
   }
 
 // email verification - forget password
+  Future<void> sendForgetPassword(String email) async {
+    try {
+await auth.sendPasswordResetEmail(email: email);
 
+    } on FirebaseAuthException catch (e) {
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseExceptions(e.code).message;
+    } on FormatException catch (e) {
+      throw const HFormatExceptions();
+    } on PlatformException catch (e) {
+      throw HPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Forget Password Problem';
+    }
+  }
 /*------------------------- Social Media Sign in-----------------------------*/
 // Google
   Future<UserCredential?> loginwithGoogle() async {

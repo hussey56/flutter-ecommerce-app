@@ -37,7 +37,7 @@ class HomeAppBar extends StatelessWidget {
       actions: [
         HCartCounterIcon(
       //  Get.to(()=> const CartScreen()
-          onPressed: () =>  AuthenticationRepository.instance.logout() ,
+          onPressed: () =>  Get.to(()=> const CartScreen()) ,
           iconColor: HColors.white,
         )
       ],
