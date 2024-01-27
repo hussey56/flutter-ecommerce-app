@@ -58,19 +58,21 @@ class UserModel {
     };
   }
   //
-  // factory UserModel.fromSnapshot(
-  //     DocumentSnapshot<Map<String, dynamic>> document){
-  //   if (document.data() != null) {
-  //     final data = document.data()!;
-  //     return UserModel(
-  //         email: data['Email']??'',
-  //         id: document.id,
-  //         username: data['Username']??'',
-  //         firstname: data['FirstName']??'',
-  //         lastname: data['LastName']??'',
-  //         profilePicture: data['ProfilePicture']??'',
-  //         phoneNumber: data['PhoneNumber']??'');
-  //   }
-  //
-  // }
+  factory UserModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document){
+    if (document.data() != null) {
+      final data = document.data()!;
+      return UserModel(
+          email: data['Email']??'',
+          id: document.id,
+          username: data['Username']??'',
+          firstname: data['FirstName']??'',
+          lastname: data['LastName']??'',
+          profilePicture: data['ProfilePicture']??'',
+          phoneNumber: data['PhoneNumber']??'');
+    }else{
+      return UserModel.empty();
+    }
+
+  }
 }

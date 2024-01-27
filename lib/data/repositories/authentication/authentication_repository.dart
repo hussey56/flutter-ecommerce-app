@@ -1,4 +1,5 @@
 import 'package:ecom3/bottom_navigation_bar.dart';
+import 'package:ecom3/data/repositories/user/user_repository.dart';
 import 'package:ecom3/features/authentication/screens/login/login.dart';
 import 'package:ecom3/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ecom3/features/authentication/screens/signup/verify_email.dart';
@@ -20,6 +21,9 @@ class AuthenticationRepository extends GetxController {
   final deviceStorage = GetStorage();
   final auth = FirebaseAuth.instance;
 
+  // get authenticated user data
+  User? get authUser => auth.currentUser;
+
 // called from main.dart on app launch
   @override
   void onReady() {
@@ -28,14 +32,14 @@ class AuthenticationRepository extends GetxController {
   }
 
 // function to show relevant screen
-void  screenRedirect() async {
+  void screenRedirect() async {
     final user = auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
         Get.offAll(() => const NavigationMenu());
       } else {
         Get.offAll(() => VerifyEmailScreen(
-          email:auth.currentUser?.email,
+              email: auth.currentUser?.email,
             ));
       }
     } else {
@@ -57,7 +61,7 @@ void  screenRedirect() async {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseExceptions(e.code).message;
-    } on FormatException catch (e) {
+    } on FormatException catch (_) {
       throw const HFormatExceptions();
     } on PlatformException catch (e) {
       throw HPlatformExceptions(e.code).message;
@@ -76,7 +80,7 @@ void  screenRedirect() async {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseExceptions(e.code).message;
-    } on FormatException catch (e) {
+    } on FormatException catch (_) {
       throw const HFormatExceptions();
     } on PlatformException catch (e) {
       throw HPlatformExceptions(e.code).message;
@@ -86,6 +90,25 @@ void  screenRedirect() async {
   }
 
 // ReAuthenticate
+  Future<void> reauthenticateUser(String email, String password) async {
+    try {
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
+
+      await auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw const HFormatExceptions();
+    } on PlatformException catch (e) {
+      throw HPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Logout';
+    }
+  }
+
 // email verification - mail verification
   Future<void> sendEmailVerification() async {
     try {
@@ -94,7 +117,7 @@ void  screenRedirect() async {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseExceptions(e.code).message;
-    } on FormatException catch (e) {
+    } on FormatException catch (_) {
       throw const HFormatExceptions();
     } on PlatformException catch (e) {
       throw HPlatformExceptions(e.code).message;
@@ -106,13 +129,12 @@ void  screenRedirect() async {
 // email verification - forget password
   Future<void> sendForgetPassword(String email) async {
     try {
-await auth.sendPasswordResetEmail(email: email);
-
+      await auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseExceptions(e.code).message;
-    } on FormatException catch (e) {
+    } on FormatException catch (_) {
       throw const HFormatExceptions();
     } on PlatformException catch (e) {
       throw HPlatformExceptions(e.code).message;
@@ -120,6 +142,7 @@ await auth.sendPasswordResetEmail(email: email);
       throw 'Forget Password Problem';
     }
   }
+
 /*------------------------- Social Media Sign in-----------------------------*/
 // Google
   Future<UserCredential?> loginwithGoogle() async {
@@ -141,7 +164,7 @@ await auth.sendPasswordResetEmail(email: email);
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseExceptions(e.code).message;
-    } on FormatException catch (e) {
+    } on FormatException catch (_) {
       throw const HFormatExceptions();
     } on PlatformException catch (e) {
       throw HPlatformExceptions(e.code).message;
@@ -154,23 +177,39 @@ await auth.sendPasswordResetEmail(email: email);
 
 /*------------------------- Signout-----------------------------*/
 // Sign out
-Future<void> logout()async{
-  try{
-    await GoogleSignIn().signOut();
-    await auth.signOut();
-    Get.offAll(()=>LoginScreen());
-  }on FirebaseAuthException catch (e) {
-    throw HFirebaseAuthException(e.code).message;
-  } on FirebaseException catch (e) {
-    throw HFirebaseExceptions(e.code).message;
-  } on FormatException catch (e) {
-    throw const HFormatExceptions();
-  } on PlatformException catch (e) {
-    throw HPlatformExceptions(e.code).message;
-  } catch (e) {
-    throw 'Something went wrong. Logout';
+  Future<void> logout() async {
+    try {
+      await GoogleSignIn().signOut();
+      await auth.signOut();
+      Get.offAll(() => LoginScreen());
+    } on FirebaseAuthException catch (e) {
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw const HFormatExceptions();
+    } on PlatformException catch (e) {
+      throw HPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Logout';
+    }
   }
-}
 
 // delete user
+  Future<void> deleteUser() async {
+    try {
+      await UserRepository.instance.RemoveUserRecord(auth.currentUser!.uid);
+      await auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw const HFormatExceptions();
+    } on PlatformException catch (e) {
+      throw HPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Logout';
+    }
+  }
 }

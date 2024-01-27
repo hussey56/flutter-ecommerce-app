@@ -1,6 +1,6 @@
 import 'package:ecom3/common/widgets/loaders/myloaders.dart';
 import 'package:ecom3/data/repositories/authentication/authentication_repository.dart';
-import 'package:ecom3/data/repositories/authentication/user_repository.dart';
+import 'package:ecom3/data/repositories/user/user_repository.dart';
 import 'package:ecom3/features/authentication/models/user_model.dart';
 import 'package:ecom3/features/authentication/screens/signup/verify_email.dart';
 import 'package:ecom3/utils/constants/image_strings.dart';

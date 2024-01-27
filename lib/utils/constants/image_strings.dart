@@ -27,7 +27,7 @@ class HImages {
       "assets/images/animations/sammy-line-man-receives-a-mail.png";
   static const staticSuccessIllustration =
       "assets/images/animations/sammy-line-success.png";
-  static const registerAnimation = "assets/images/animations/register.json";
+  static const registerAnimation = "assets/images/animations/loader.json";
 
 
 // categories images
