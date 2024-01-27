@@ -4,6 +4,7 @@ import 'package:ecom3/common/widgets/cart/cart_menu_icon.dart';
 import 'package:ecom3/common/widgets/custom_shapes/container/search_container.dart';
 import 'package:ecom3/common/widgets/layouts/gridview_layout.dart';
 import 'package:ecom3/common/widgets/text/section_heading.dart';
+import 'package:ecom3/features/shop/controllers/category_controller.dart';
 import 'package:ecom3/features/shop/screens/brands/brands.dart';
 import 'package:ecom3/features/shop/screens/shop/widgets/category_tab.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
@@ -20,8 +21,10 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
+    final controller = CategoryController.instance;
+    final categories = CategoryController.instance.featuredCategories;
     return DefaultTabController(
-      length: 5,
+      length: categories.length,
       child: Scaffold(
         appBar: HAppBar(
           title: Text(
@@ -66,7 +69,7 @@ class StoreScreen extends StatelessWidget {
                         // Featured Brands
                         HSectionHeading(
                           title: 'Featured Brands',
-                          onPressed: () =>Get.to(()=> const BrandScreen()),
+                          onPressed: () => Get.to(() => const BrandScreen()),
                         ),
                         const SizedBox(
                           height: HSizes.spaceBtwItems / 1.5,
@@ -85,40 +88,21 @@ class StoreScreen extends StatelessWidget {
 
                   // Tabs
 
-                  bottom: const CTabBar(
-                    tabs: [
-                      Tab(
-                        child: Text("Sports"),
-                      ),
-                      Tab(
-                        child: Text("Cosmetics"),
-                      ),
-                      Tab(
-                        child: Text("Electronic"),
-                      ),
-                      Tab(
-                        child: Text("Clothes"),
-                      ),
-                      Tab(
-                        child: Text("Jewellery"),
-                      ),
-                    ],
+                  bottom: CTabBar(
+                    tabs: categories
+                        .map((category) => Tab(child: Text(category.name)))
+                        .toList(),
                   ),
                 )
               ];
             },
-            body: const TabBarView(
-              children: [
-               CategoryTab(),
-                CategoryTab(),
-                CategoryTab(),
-                CategoryTab(),
-                CategoryTab(),
-              ],
-            )),
+            body: TabBarView(
+                children: categories
+                    .map((category) => CategoryTab(
+                          category: category,
+                        ))
+                    .toList())),
       ),
     );
   }
 }
-
-

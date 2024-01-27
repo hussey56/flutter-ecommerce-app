@@ -1,4 +1,5 @@
-
+import 'package:ecom3/common/widgets/shimmer/category_shimmer.dart';
+import 'package:ecom3/features/shop/controllers/category_controller.dart';
 import 'package:ecom3/features/shop/screens/subcategory/sub_category.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,20 +17,38 @@ class HHomeCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    return SizedBox(
-      height: 82,
-      child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: 6,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (_, index) {
-            return HVerticalImageText(
-              text: "Cosmetics",
-              image: HImages.cosmeticIcon,
-              backgroudColor: dark ? HColors.black : HColors.white,
-              onTap: () =>Get.to(()=>const SubCategoryScreen()),
-            );
-          }),
-    );
+    final controller = Get.put(CategoryController());
+    return Obx(() {
+      if (controller.isLoading.value) return const CategoryShimmerLoader();
+      if (controller.featuredCategories.isEmpty) {
+        return Center(
+          child: Text(
+            'Data Not Found',
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .apply(color: Colors.white),
+          ),
+        );
+      }
+
+      return SizedBox(
+        height: 82,
+        child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: controller.featuredCategories.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (_, index) {
+              final category = controller.featuredCategories[index];
+              return HVerticalImageText(
+                text: category.name,
+                image: category.image,
+                isNetworkImage: true,
+                backgroudColor: dark ? HColors.black : HColors.white,
+                onTap: () => Get.to(() => const SubCategoryScreen()),
+              );
+            }),
+      );
+    });
   }
 }

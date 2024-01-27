@@ -1,6 +1,6 @@
 import 'package:ecom3/common/widgets/appbar/appbar.dart';
 import 'package:ecom3/common/widgets/images/circular_image.dart';
-import 'package:ecom3/common/widgets/loaders/shimmer_loader.dart';
+import 'package:ecom3/common/widgets/shimmer/shimmer_loader.dart';
 import 'package:ecom3/common/widgets/text/section_heading.dart';
 import 'package:ecom3/features/personalization/controllers/user_controller.dart';
 import 'package:ecom3/features/personalization/screens/profile/widgets/namechange.dart';

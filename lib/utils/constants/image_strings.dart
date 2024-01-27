@@ -30,7 +30,8 @@ class HImages {
   static const registerAnimation = "assets/images/animations/loader.json";
 
 
-// categories images
+// categories image
+  static const electronicIcon = "assets/icons/categories/icons8-electronics-50.png";
   static const animalIcon = "assets/icons/categories/icons8-animal-50.png";
   static const sportsIcon = "assets/icons/categories/icons8-bowling-64.png";
   static const cosmeticIcon = "assets/icons/categories/icons8-cosmetic-64.png";

@@ -1,4 +1,4 @@
-import 'package:ecom3/common/widgets/loaders/shimmer_loader.dart';
+import 'package:ecom3/common/widgets/shimmer/shimmer_loader.dart';
 import 'package:ecom3/features/personalization/controllers/user_controller.dart';
 import 'package:ecom3/features/shop/screens/cart/cart.dart';
 import 'package:flutter/material.dart';
