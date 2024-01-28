@@ -1,5 +1,6 @@
 import 'package:ecom3/bindings/general_bindings.dart';
 import 'package:ecom3/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:ecom3/routes/app_routes.dart';
 import 'package:ecom3/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:ecom3/utils/theme/theme.dart';
@@ -16,6 +17,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: HAppTheme.lightTheme,
       darkTheme: HAppTheme.darkTheme,
+      getPages: AppRoutes.pages,
       home: const Scaffold(
         backgroundColor: HColors.primary,
         body: Center(

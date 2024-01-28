@@ -4,6 +4,7 @@ import 'package:ecom3/common/widgets/cart/cart_menu_icon.dart';
 import 'package:ecom3/common/widgets/custom_shapes/container/search_container.dart';
 import 'package:ecom3/common/widgets/layouts/gridview_layout.dart';
 import 'package:ecom3/common/widgets/text/section_heading.dart';
+import 'package:ecom3/features/shop/controllers/banner_controller.dart';
 import 'package:ecom3/features/shop/controllers/category_controller.dart';
 import 'package:ecom3/features/shop/screens/brands/brands.dart';
 import 'package:ecom3/features/shop/screens/shop/widgets/category_tab.dart';
@@ -21,7 +22,7 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    final controller = CategoryController.instance;
+    final controller = BannerController.instance;
     final categories = CategoryController.instance.featuredCategories;
     return DefaultTabController(
       length: categories.length,

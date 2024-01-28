@@ -1,4 +1,5 @@
 import 'package:ecom3/common/widgets/layouts/gridview_layout.dart';
+import 'package:ecom3/features/shop/controllers/product_controller.dart';
 import 'package:ecom3/features/shop/screens/all_products/allproducts.dart';
 import 'package:ecom3/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:ecom3/features/shop/screens/home/widgets/home_categories.dart';
@@ -19,6 +20,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProductController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -27,9 +29,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   // Appbar
-                  HomeAppBar(
-
-                  ),
+                  HomeAppBar(),
                   SizedBox(
                     height: HSizes.spaceBtwSection,
                   ),
@@ -75,29 +75,25 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(HSizes.defaultSpace),
                 child: Column(
                   children: [
-                    const PromoSlider(
-                      banners: [
-                        HImages.promo1,
-                        HImages.promo3,
-                        HImages.promo1,
-                      ],
-                    ),
+                    const PromoSlider(),
                     const SizedBox(
                       height: HSizes.spaceBtwItems,
                     ),
 
                     // popular Product
-                     HSectionHeading(title: 'Popular Products',onPressed: (){
-                      Get.to(() => const AllProducts());
-
-                    },),
+                    HSectionHeading(
+                      title: 'Popular Products',
+                      onPressed: () {
+                        Get.to(() => const AllProducts());
+                      },
+                    ),
                     const SizedBox(
                       height: HSizes.spaceBtwItems,
                     ),
                     GridViewLayout(
                         itemCount: 4,
-                        itemBuilder: (_,
-                            index) => const HProductCardVertical()),
+                        itemBuilder: (_, index) =>
+                            const HProductCardVertical()),
                   ],
                 )),
           ],
