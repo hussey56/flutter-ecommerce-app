@@ -2,8 +2,11 @@ import 'package:ecom3/common/styles/shadows.dart';
 import 'package:ecom3/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecom3/common/widgets/text/price_text.dart';
 import 'package:ecom3/common/widgets/text/product_title.dart';
+import 'package:ecom3/features/shop/controllers/product/product_controller.dart';
+import 'package:ecom3/features/shop/models/product_model.dart';
 import 'package:ecom3/features/shop/screens/product_details/product_detail.dart';
 import 'package:ecom3/utils/constants/colors.dart';
+import 'package:ecom3/utils/constants/enum.dart';
 import 'package:ecom3/utils/constants/image_strings.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
 import 'package:ecom3/utils/helpers/helper_functions.dart';
@@ -15,13 +18,18 @@ import '../../icons/circular_icon.dart';
 import '../../images/rounded_image.dart';
 
 class HProductCardVertical extends StatelessWidget {
-  const HProductCardVertical({super.key});
+  const HProductCardVertical({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage =
+        controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () => Get.to(()=> const ProductDetail()),
+      onTap: () => Get.to(() => ProductDetail(product: product)),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -35,14 +43,18 @@ class HProductCardVertical extends StatelessWidget {
             // 1 discount, wishlist , thumbnail
             RoundedContainer(
               height: 180,
+              width: 180,
               padding: const EdgeInsets.all(HSizes.sm),
               backgroudColor: dark ? HColors.dark : HColors.white,
               child: Stack(
                 children: [
                   // Thumbnail image
-                  const RoundedImage(
-                    imageUrl: HImages.product4,
-                    ApplyImageRadius: true,
+                  Center(
+                    child: RoundedImage(
+                      imageUrl: product.thumbnail,
+                      ApplyImageRadius: true,
+                      isNetworkImage: true,
+                    ),
                   ),
 
                   //sale tag
@@ -54,7 +66,7 @@ class HProductCardVertical extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: HSizes.sm, vertical: HSizes.xs),
                       child: Text(
-                        '25%',
+                        '$salePercentage%',
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!
@@ -82,8 +94,8 @@ class HProductCardVertical extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ProductTitle(
-                    title: "Nike Genx 45 Shoes",
+                  ProductTitle(
+                    title: product.title,
                     smallSize: true,
                   ),
                   const SizedBox(
@@ -92,7 +104,7 @@ class HProductCardVertical extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'Nike',
+                        product.brand!.name,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.labelMedium,
@@ -110,15 +122,34 @@ class HProductCardVertical extends StatelessWidget {
                 ],
               ),
             ),
-         const  Spacer(),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //Price
-                const Padding(
-                  padding:  EdgeInsets.only(left: HSizes.sm),
-                  child: ProductPriceText(
-                    price: '34.4',
+                Flexible(
+                  child: Column(
+                    children: [
+                      if (product.productType ==
+                              ProductType.single.toString() &&
+                          product.salePrice > 0)
+                        Padding(
+                            padding: EdgeInsets.only(left: HSizes.sm),
+                            child: Text(
+                              product.price.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .apply(
+                                      decoration: TextDecoration.lineThrough),
+                            )),
+                      Padding(
+                        padding: EdgeInsets.only(left: HSizes.sm),
+                        child: ProductPriceText(
+                          price: controller.getProductPrice(product),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Container(
@@ -126,8 +157,8 @@ class HProductCardVertical extends StatelessWidget {
                       color: HColors.dark,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(HSizes.cardRadiusMd),
-                          bottomRight: Radius.circular(
-                              HSizes.productImageRadius))),
+                          bottomRight:
+                              Radius.circular(HSizes.productImageRadius))),
                   child: const SizedBox(
                     height: HSizes.iconLg * 1.2,
                     width: HSizes.iconLg * 1.2,

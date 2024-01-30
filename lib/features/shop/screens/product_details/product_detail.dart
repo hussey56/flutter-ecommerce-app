@@ -1,9 +1,11 @@
+import 'package:ecom3/features/shop/models/product_model.dart';
 import 'package:ecom3/features/shop/screens/product_details/widgets/product_attributes.dart';
 import 'package:ecom3/features/shop/screens/product_details/widgets/product_bottom_add_to_cart.dart';
 import 'package:ecom3/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
 import 'package:ecom3/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:ecom3/features/shop/screens/product_details/widgets/rating_share_widget.dart';
 import 'package:ecom3/features/shop/screens/product_reviews/product_reviews.dart';
+import 'package:ecom3/utils/constants/enum.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
 import 'package:ecom3/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -14,18 +16,21 @@ import 'package:readmore/readmore.dart';
 import '../../../../common/widgets/text/section_heading.dart';
 
 class ProductDetail extends StatelessWidget {
-  const ProductDetail({super.key});
+  const ProductDetail({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       bottomNavigationBar: const BottomAddToCart(),
       body: SingleChildScrollView(
         child: Column(
           children: [
             // 1. Product Image Slider
-            const ProductImageSlider(),
+            ProductImageSlider(
+              product: product,
+            ),
 
             // 2. Product Details
 
@@ -39,11 +44,14 @@ class ProductDetail extends StatelessWidget {
                   // Rating and Share Button
                   const RatingandShare(),
                   // Price, title, Stack and Brand
-                  const ProductMetaData(),
+                  ProductMetaData(product: product),
+
+                 if(product.productType == ProductType.variable.toString())
                   // Attributes
-                  const ProductAttributes(),
+                   ProductAttributes(product:product),
                   // Checkout
-                  const SizedBox(
+                  if(product.productType == ProductType.variable.toString())
+                    const SizedBox(
                     height: HSizes.spaceBtwSection,
                   ),
                   SizedBox(
@@ -65,7 +73,7 @@ class ProductDetail extends StatelessWidget {
                     height: HSizes.spaceBtwItems,
                   ),
                   ReadMoreText(
-                    "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
+                    product.description??'',
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: ' Show More',
@@ -92,7 +100,7 @@ class ProductDetail extends StatelessWidget {
                       ),
                       IconButton(
                           onPressed: () {
-                            Get.to(()=>ProductRatings());
+                            Get.to(() => ProductRatings());
                           },
                           icon: Icon(
                             Iconsax.arrow_right_3,

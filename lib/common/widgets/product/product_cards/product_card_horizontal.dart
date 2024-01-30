@@ -4,6 +4,7 @@ import 'package:ecom3/common/widgets/images/rounded_image.dart';
 import 'package:ecom3/common/widgets/text/brand_title_with_verified.dart';
 import 'package:ecom3/common/widgets/text/price_text.dart';
 import 'package:ecom3/common/widgets/text/product_title.dart';
+import 'package:ecom3/features/shop/models/product_model.dart';
 import 'package:ecom3/features/shop/screens/product_details/product_detail.dart';
 import 'package:ecom3/utils/constants/colors.dart';
 import 'package:ecom3/utils/constants/image_strings.dart';
@@ -22,7 +23,7 @@ class HProductCardHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () => Get.to(() => ProductDetail()),
+      onTap: () => Get.to(() => ProductDetail(product: ProductModel.empty(),)),
       child: Container(
         width: 310,
         padding: const EdgeInsets.all(1),

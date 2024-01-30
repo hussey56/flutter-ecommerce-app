@@ -2,6 +2,7 @@ import 'package:ecom3/common/widgets/layouts/gridview_layout.dart';
 import 'package:ecom3/common/widgets/product/product_cards/product_card_vertical.dart';
 import 'package:ecom3/common/widgets/text/section_heading.dart';
 import 'package:ecom3/features/shop/models/category_model.dart';
+import 'package:ecom3/features/shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../common/widgets/brand/brand_showcase.dart';
@@ -36,7 +37,7 @@ final CategoryModel category;
               height: HSizes.spaceBtwItems,
             ),
             GridViewLayout(
-                itemCount: 4, itemBuilder: (_, index) => const HProductCardVertical()),
+                itemCount: 4, itemBuilder: (_, index) =>  HProductCardVertical(product: ProductModel.empty(),)),
             const SizedBox(
               height: HSizes.spaceBtwSection,
             ),

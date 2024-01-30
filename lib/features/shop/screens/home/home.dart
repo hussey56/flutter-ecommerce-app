@@ -1,5 +1,6 @@
 import 'package:ecom3/common/widgets/layouts/gridview_layout.dart';
-import 'package:ecom3/features/shop/controllers/product_controller.dart';
+import 'package:ecom3/common/widgets/shimmer/vertical_shimmer_loader.dart';
+import 'package:ecom3/features/shop/controllers/product/product_controller.dart';
 import 'package:ecom3/features/shop/screens/all_products/allproducts.dart';
 import 'package:ecom3/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:ecom3/features/shop/screens/home/widgets/home_categories.dart';
@@ -29,7 +30,8 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   // Appbar
-                  HomeAppBar(),
+                  HomeAppBar(
+                  ),
                   SizedBox(
                     height: HSizes.spaceBtwSection,
                   ),
@@ -90,10 +92,18 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(
                       height: HSizes.spaceBtwItems,
                     ),
-                    GridViewLayout(
-                        itemCount: 4,
-                        itemBuilder: (_, index) =>
-                            const HProductCardVertical()),
+                    Obx(
+                        () {
+                          if(controller.isLoading.value)return const HVerticalProductShimmer();
+                          if(controller.fetauredProducts.isEmpty){
+return Center(child: Text('No Data Found'),);
+                          }
+                         return GridViewLayout(
+                              itemCount: controller.fetauredProducts.length,
+                              itemBuilder: (_, index) =>
+                               HProductCardVertical(product: controller.fetauredProducts[index])
+                         );
+                        }),
                   ],
                 )),
           ],

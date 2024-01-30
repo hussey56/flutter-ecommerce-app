@@ -58,4 +58,23 @@ class HImages {
   static const product3 = "assets/images/products/nike_shoes_1.png";
   static const product4 = "assets/images/products/nike_shoes_2.png";
   static const product5 = "assets/images/products/nike_tshirt_1.png";
+  //jordan shoes
+  static const redjordan = "assets/images/products/red_jordan.png";
+  static const greenjordan = "assets/images/products/green_jordan.png";
+  static const blackjordan = "assets/images/products/black_jordan.png";
+  // iphone 14 pro max
+  static const iphone = "assets/images/products/iphones.png";
+  static const iphone_black = "assets/images/products/black_iphone.png";
+  static const iphone_red = "assets/images/products/blue_iphone.png";
+  static const iphone_blue = "assets/images/products/red_iphone.png";
+  // app air pods
+  static const airpods_1 = "assets/images/products/air_pods.png";
+  static const airpods_2 = "assets/images/products/air_pods_2.png";
+
+
+
+  // brands
+static const nikeLogo = "assets/logos/nike.png";
+static const appleLogo = "assets/logos/apple.png";
+
 }

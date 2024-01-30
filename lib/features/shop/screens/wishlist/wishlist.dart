@@ -2,6 +2,7 @@ import 'package:ecom3/common/widgets/appbar/appbar.dart';
 import 'package:ecom3/common/widgets/icons/circular_icon.dart';
 import 'package:ecom3/common/widgets/layouts/gridview_layout.dart';
 import 'package:ecom3/common/widgets/product/product_cards/product_card_vertical.dart';
+import 'package:ecom3/features/shop/models/product_model.dart';
 import 'package:ecom3/features/shop/screens/home/home.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class WishlistScreen extends StatelessWidget {
            children: [
              GridViewLayout(
                itemCount: 4,
-               itemBuilder: (_,index)=> const HProductCardVertical(),
+               itemBuilder: (_,index)=>  HProductCardVertical(product: ProductModel.empty(),),
              )
            ],
          ),

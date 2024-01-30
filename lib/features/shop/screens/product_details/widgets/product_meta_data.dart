@@ -2,6 +2,8 @@ import 'package:ecom3/common/widgets/custom_shapes/container/rounded_container.d
 import 'package:ecom3/common/widgets/images/circular_image.dart';
 import 'package:ecom3/common/widgets/text/brand_title_with_verified.dart';
 import 'package:ecom3/common/widgets/text/price_text.dart';
+import 'package:ecom3/features/shop/controllers/product/product_controller.dart';
+import 'package:ecom3/features/shop/models/product_model.dart';
 import 'package:ecom3/utils/constants/enum.dart';
 import 'package:ecom3/utils/constants/image_strings.dart';
 import 'package:ecom3/utils/helpers/helper_functions.dart';
@@ -12,10 +14,12 @@ import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 
 class ProductMetaData extends StatelessWidget {
-  const ProductMetaData({super.key});
-
+  const ProductMetaData({super.key, required this.product});
+final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = THelperFunctions.isDarkMode(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +33,7 @@ class ProductMetaData extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: HSizes.sm, vertical: HSizes.xs),
               child: Text(
-                '25%',
+                '$salePercentage%',
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
@@ -41,18 +45,20 @@ class ProductMetaData extends StatelessWidget {
             ),
 
             //Price
+            if(product.productType == ProductType.single.toString() && product.salePrice>0)
             Text(
-              '\$250',
+              '\$${product.price}',
               style: Theme.of(context)
                   .textTheme
                   .titleSmall!
                   .apply(decoration: TextDecoration.lineThrough),
             ),
-            const SizedBox(
+            if(product.productType == ProductType.single.toString() && product.salePrice>0)
+              const SizedBox(
               width: HSizes.spaceBtwItems,
             ),
-            const ProductPriceText(
-              price: '175',
+             ProductPriceText(
+              price: controller.getProductPrice(product),
               isLarge: true,
             )
           ],
@@ -62,8 +68,8 @@ class ProductMetaData extends StatelessWidget {
         ),
 
         // Title
-        const ProductTitle(
-          title: 'Nike Blue Oxygen 67',
+         ProductTitle(
+          title: product.title,
         ),
         const SizedBox(
           height: HSizes.spaceBtwItems / 1.5,
@@ -78,7 +84,7 @@ class ProductMetaData extends StatelessWidget {
             width: HSizes.spaceBtwItems,
           ),
           Text(
-            'In Stock',
+            controller.getStockStatus(product.stock),
             style: Theme.of(context).textTheme.titleMedium,
           )
         ]),
@@ -89,13 +95,14 @@ class ProductMetaData extends StatelessWidget {
         Row(
           children: [
             HCircularImage(
-              image: HImages.cosmeticIcon,
+              image: product.brand!.image,
               width: 32,
               height: 32,
+              isNetworkImage: true,
               overlayColor: dark ? HColors.white : HColors.black,
             ),
-            const BrandTitlewithVerifiedIcon(
-              title: 'Nike',
+             BrandTitlewithVerifiedIcon(
+              title: product.brand != null ?product.brand!.name:'',
               brandTextSize: TextSizes.medium,
             ),
           ],

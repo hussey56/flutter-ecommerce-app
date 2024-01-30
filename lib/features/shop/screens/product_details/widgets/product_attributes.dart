@@ -3,14 +3,15 @@ import 'package:ecom3/common/widgets/custom_shapes/container/rounded_container.d
 import 'package:ecom3/common/widgets/text/price_text.dart';
 import 'package:ecom3/common/widgets/text/product_title.dart';
 import 'package:ecom3/common/widgets/text/section_heading.dart';
+import 'package:ecom3/features/shop/models/product_model.dart';
 import 'package:ecom3/utils/constants/colors.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
 import 'package:ecom3/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class ProductAttributes extends StatelessWidget {
-  const ProductAttributes({super.key});
-
+  const ProductAttributes({super.key, required this.product});
+final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
@@ -80,71 +81,30 @@ class ProductAttributes extends StatelessWidget {
         const SizedBox(
           height: HSizes.spaceBtwItems,
         ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: product.productAttributes!.map((attribute) =>Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               HSectionHeading(
+                title: attribute.name??'',
+                showActionButton: false,
+              ),
+              const SizedBox(
+                height: HSizes.spaceBtwItems / 2,
+              ),
+              Wrap(
+                spacing: 8,
+                children: attribute.values!.map((value) => HChoiceChip(
+                  text: value,
+                  selected: false,
+                  Selected: (value) {},
+                )).toList()
+              )
+            ],
+          )).toList(),
+        )
         //  Attributes
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const HSectionHeading(
-              title: "Colors",
-              showActionButton: false,
-            ),
-            const SizedBox(
-              height: HSizes.spaceBtwItems / 2,
-            ),
-            Wrap(
-              spacing: 8,
-              children: [
-                HChoiceChip(
-                  text: "Green",
-                  selected: true,
-                  Selected: (value) {},
-                ),
-                HChoiceChip(
-                  text: "Blue",
-                  selected: false,
-                  Selected: (value) {},
-                ),
-                HChoiceChip(
-                  text: "Red",
-                  selected: false,
-                  Selected: (value) {},
-                ),
-              ],
-            )
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const HSectionHeading(
-              title: "Size",
-              showActionButton: false,
-            ),
-            const SizedBox(
-              height: HSizes.spaceBtwItems / 2,
-            ),
-            Wrap(
-              spacing: 8,
-              children: [
-                HChoiceChip(
-                  text: "EU 32",
-                  selected: true,
-                  Selected: (value) {},
-                ),
-                HChoiceChip(
-                  text: "EU 34",
-                  selected: false,
-                  Selected: (value) {},
-                ),
-                HChoiceChip(
-                  text: "EU 38",
-                  selected: false,
-                  Selected: (value) {},
-                ),
-              ],
-            )
-          ],
-        ),
       ],
     );
   }

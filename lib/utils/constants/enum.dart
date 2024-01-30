@@ -1,6 +1,7 @@
 // LIST ODF ENUMS
 
 // THEY CAN'T BE CREATED INSIDE A CLASS
+enum ProductType{single,variable}
 
 enum TextSizes { small, medium, large }
 
