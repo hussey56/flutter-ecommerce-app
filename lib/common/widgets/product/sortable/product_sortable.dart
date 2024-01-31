@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom3/features/shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -7,9 +8,9 @@ import '../../layouts/gridview_layout.dart';
 import '../product_cards/product_card_vertical.dart';
 class SortableProducts extends StatelessWidget {
   const SortableProducts({
-    super.key,
+    super.key, required this.products,
   });
-
+final List<ProductModel> products;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,8 +39,8 @@ class SortableProducts extends StatelessWidget {
 
         // Product
         GridViewLayout(
-            itemCount: 6,
-            itemBuilder: (_, index) =>  HProductCardVertical(product: ProductModel.empty(),))
+            itemCount: products.length,
+            itemBuilder: (_, index) =>  HProductCardVertical(product: products[index],))
       ],
     );
   }

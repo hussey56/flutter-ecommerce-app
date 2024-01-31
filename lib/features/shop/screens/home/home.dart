@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom3/common/widgets/layouts/gridview_layout.dart';
 import 'package:ecom3/common/widgets/shimmer/vertical_shimmer_loader.dart';
 import 'package:ecom3/features/shop/controllers/product/product_controller.dart';
@@ -30,8 +31,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   // Appbar
-                  HomeAppBar(
-                  ),
+                  HomeAppBar(),
                   SizedBox(
                     height: HSizes.spaceBtwSection,
                   ),
@@ -54,7 +54,15 @@ class HomeScreen extends StatelessWidget {
                           showActionButton: false,
                           textColor: HColors.white,
                           onPressed: () {
-                            Get.to(() => const AllProducts());
+                            Get.to(() => AllProducts(
+                                  title: 'Popular Products',
+                             futureMethod: controller.fetchAllFeaturedProducts(),
+                             // pass query like this
+                             //     query: FirebaseFirestore.instance
+                               //       .collection("Products")
+                               //       .where("IsFeatured", isEqualTo: true)
+                              //        .limit(6),
+                                ));
                           },
                         ),
                         SizedBox(
@@ -86,24 +94,27 @@ class HomeScreen extends StatelessWidget {
                     HSectionHeading(
                       title: 'Popular Products',
                       onPressed: () {
-                        Get.to(() => const AllProducts());
+                        Get.to(() => AllProducts(
+                              title: "Popular",
+                            ));
                       },
                     ),
                     const SizedBox(
                       height: HSizes.spaceBtwItems,
                     ),
-                    Obx(
-                        () {
-                          if(controller.isLoading.value)return const HVerticalProductShimmer();
-                          if(controller.fetauredProducts.isEmpty){
-return Center(child: Text('No Data Found'),);
-                          }
-                         return GridViewLayout(
-                              itemCount: controller.fetauredProducts.length,
-                              itemBuilder: (_, index) =>
-                               HProductCardVertical(product: controller.fetauredProducts[index])
-                         );
-                        }),
+                    Obx(() {
+                      if (controller.isLoading.value)
+                        return const HVerticalProductShimmer();
+                      if (controller.fetauredProducts.isEmpty) {
+                        return Center(
+                          child: Text('No Data Found'),
+                        );
+                      }
+                      return GridViewLayout(
+                          itemCount: controller.fetauredProducts.length,
+                          itemBuilder: (_, index) => HProductCardVertical(
+                              product: controller.fetauredProducts[index]));
+                    }),
                   ],
                 )),
           ],
