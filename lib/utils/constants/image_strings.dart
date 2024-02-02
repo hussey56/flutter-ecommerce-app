@@ -71,6 +71,16 @@ class HImages {
   static const airpods_1 = "assets/images/products/air_pods.png";
   static const airpods_2 = "assets/images/products/air_pods_2.png";
 
+  // levis
+  static const levis_logo = "assets/images/products/levis.png";
+  static const levis_tshirt_1 = "assets/images/products/levis1.jfif";
+  static const levis_tshirt_2 = "assets/images/products/levis2.png";
+
+  // acer
+  static const acer_logo = "assets/images/products/Acer.png";
+
+  static const acer_laptop_1 = "assets/images/products/acer1.png";
+  static const acer_laptop_2 = "assets/images/products/acer2.png";
 
 
   // brands

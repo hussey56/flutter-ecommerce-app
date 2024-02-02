@@ -5,9 +5,9 @@ import 'package:ecom3/common/widgets/product/product_cards/product_card_vertical
 import 'package:ecom3/common/widgets/shimmer/vertical_shimmer_loader.dart';
 import 'package:ecom3/features/shop/controllers/all_products_controller.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
+import 'package:ecom3/utils/helpers/cloud_helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/widgets/product/sortable/product_sortable.dart';
 import '../../models/product_model.dart';
@@ -31,25 +31,15 @@ class AllProducts extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(HSizes.defaultSpace),
-          child: FutureBuilder<Object>(
+          child: FutureBuilder(
               future: futureMethod ?? controller.fetchProductsByQuery(query),
               builder: (context, snapshot) {
                 const loader = HVerticalProductShimmer();
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return loader;
-                }
-                if (!snapshot.hasData || snapshot.data == null) {
-                  return Center(
-                    child: Text('No Data Found'),
-                  );
-                }
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Something went wrong'),
-                  );
-                }
+               final widget = HCloudHelperFuction.checkMultipleRecordState(snapshot: snapshot,loader: loader);
+               if(widget !=null)return widget;
+
                 final products = snapshot.data!;
-                return SortableProducts(products: [],);
+                return SortableProducts(products: products,);
               }),
         ),
       ),

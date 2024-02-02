@@ -34,6 +34,7 @@ class ProductRepository extends GetxController {
       throw e.toString();
     }
   }
+
 // get all featured products
   Future<List<ProductModel>> getAllFeaturedProducts() async {
     try {
@@ -44,6 +45,70 @@ class ProductRepository extends GetxController {
       return snapshot.docs
           .map((product) => ProductModel.fromSnapshot(product))
           .toList();
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } on SocketException catch (e) {
+      throw e.message!;
+    } on PlatformException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  // get products by brand id
+  Future<List<ProductModel>> getProductsByBrand(
+      {required String brandId, int limit = -1}) async {
+    try {
+      final querySnapshot = limit == -1
+          ? await _db
+              .collection("Products")
+              .where("Brand.Id", isEqualTo: brandId)
+              .get()
+          : await _db
+              .collection("Products")
+              .where("Brand.Id", isEqualTo: brandId)
+              .limit(limit)
+              .get();
+
+      final products = querySnapshot.docs
+          .map((product) => ProductModel.fromSnapshot(product))
+          .toList();
+      return products;
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } on SocketException catch (e) {
+      throw e.message!;
+    } on PlatformException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  // get products by category
+  Future<List<ProductModel>> getProductsByCategory(
+      {required String categoryId, int limit = -1}) async {
+    try {
+      final querySnapshot = limit == -1
+          ? await _db
+              .collection("ProductCategory")
+              .where("categoryId", isEqualTo: categoryId)
+              .get()
+          : await _db
+              .collection("ProductCategory")
+              .where("categoryId", isEqualTo: categoryId)
+              .limit(limit)
+              .get();
+      List<String> productsId =
+          querySnapshot.docs.map((e) => e['productId'] as String).toList();
+      final productQuery = await _db
+          .collection("Products")
+          .where(FieldPath.documentId, whereIn: productsId)
+          .get();
+      List<ProductModel> products =
+          productQuery.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
+      return products;
     } on FirebaseException catch (e) {
       throw e.message!;
     } on SocketException catch (e) {

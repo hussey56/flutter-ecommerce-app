@@ -1,3 +1,4 @@
+import 'package:ecom3/features/shop/models/brand_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
@@ -11,9 +12,9 @@ import '../text/brand_title_with_verified.dart';
 
 class BrandCard extends StatelessWidget {
   const BrandCard({
-    super.key, required this.showBorder, this.onTap,
+    super.key, required this.showBorder, this.onTap, required this.brand,
   });
-
+final BrandModel brand;
   final bool showBorder;
   final void Function()? onTap;
 
@@ -31,8 +32,8 @@ class BrandCard extends StatelessWidget {
             // Icon
             Flexible(
               child: HCircularImage(
-                image: HImages.animalIcon,
-                isNetworkImage: false,
+                image: brand.image,
+                isNetworkImage: true,
                 backgroudColor: Colors.transparent,
                 overlayColor: dark
                     ? HColors.white
@@ -48,12 +49,12 @@ class BrandCard extends StatelessWidget {
                 crossAxisAlignment:
                 CrossAxisAlignment.start,
                 children: [
-                  const BrandTitlewithVerifiedIcon(
-                    title: "Monkey",
+                   BrandTitlewithVerifiedIcon(
+                    title:brand.name,
                     brandTextSize: TextSizes.large,
                   ),
                   Text(
-                    '256 products',
+                    '${brand.productsCount??0} products',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .textTheme

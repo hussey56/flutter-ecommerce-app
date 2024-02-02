@@ -3,9 +3,12 @@ import 'package:ecom3/common/widgets/appbar/tabbar.dart';
 import 'package:ecom3/common/widgets/cart/cart_menu_icon.dart';
 import 'package:ecom3/common/widgets/custom_shapes/container/search_container.dart';
 import 'package:ecom3/common/widgets/layouts/gridview_layout.dart';
+import 'package:ecom3/common/widgets/shimmer/brand_shimmer.dart';
 import 'package:ecom3/common/widgets/text/section_heading.dart';
 import 'package:ecom3/features/shop/controllers/banner_controller.dart';
+import 'package:ecom3/features/shop/controllers/brand_controller.dart';
 import 'package:ecom3/features/shop/controllers/category_controller.dart';
+import 'package:ecom3/features/shop/controllers/product/product_controller.dart';
 import 'package:ecom3/features/shop/screens/brands/brands.dart';
 import 'package:ecom3/features/shop/screens/shop/widgets/category_tab.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
@@ -15,6 +18,7 @@ import 'package:get/get.dart';
 
 import '../../../../common/widgets/brand/brand_card.dart';
 import '../../../../utils/constants/colors.dart';
+import '../brands/brand_products.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
@@ -22,8 +26,10 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    final controller = BannerController.instance;
     final categories = CategoryController.instance.featuredCategories;
+    final brandController = Get.put(BrandController());
+    final productcontroller = Get.put(ProductController());
+
     return DefaultTabController(
       length: categories.length,
       child: Scaffold(
@@ -34,7 +40,9 @@ class StoreScreen extends StatelessWidget {
           ),
           actions: [
             HCartCounterIcon(
-                onPressed: () {},
+                onPressed: () {
+                  productcontroller.addDummyData();
+                },
                 iconColor: dark ? HColors.white : HColors.dark)
           ],
         ),
@@ -75,14 +83,34 @@ class StoreScreen extends StatelessWidget {
                         const SizedBox(
                           height: HSizes.spaceBtwItems / 1.5,
                         ),
-                        GridViewLayout(
-                            itemCount: 4,
-                            mainaxisExtent: 80,
-                            itemBuilder: (_, index) {
-                              return const BrandCard(
-                                showBorder: false,
+                        Obx(
+                          () {
+                            if (brandController.isLoading.value)
+                              return const BrandShimmer();
+                            if (brandController.featuredBrands.isEmpty) {
+                              return Center(
+                                child: Text(
+                                  'No Data Found',
+                                  style: Theme.of(context).textTheme.bodyMedium!
+                                      .apply(color: Colors.white),
+                                ),
                               );
-                            })
+                            }
+
+                            return GridViewLayout(
+                                itemCount: brandController.featuredBrands.length,
+                                mainaxisExtent: 80,
+                                itemBuilder: (_, index) {
+                                  final brand = brandController.featuredBrands[index];
+                                  return
+                                    BrandCard(
+                                    showBorder: false,
+                                      brand:brand,
+                                      onTap: ()=>Get.to(()=>BrandProducts(brand: brand,))
+                                  );
+                                });
+                          },
+                        )
                       ],
                     ),
                   ),

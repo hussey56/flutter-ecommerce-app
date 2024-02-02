@@ -6,6 +6,9 @@ import 'package:ecom3/utils/dummy/dummy.dart';
 import 'package:ecom3/utils/popups/full_screen_loader.dart';
 import 'package:get/get.dart';
 
+import '../../../data/repositories/product/product_repository.dart';
+import '../models/product_model.dart';
+
 class CategoryController extends GetxController {
   static CategoryController get instance => Get.find();
 
@@ -42,7 +45,17 @@ class CategoryController extends GetxController {
   }
 
 // load selected category data
-
+  // get category products
+  Future<List<ProductModel>> getCategoryProduct({required String categoryId,int limit =4}) async {
+    try {
+      final products =
+      ProductRepository.instance.getProductsByCategory(categoryId: categoryId,limit: limit);
+      return products;
+    } catch (e) {
+      HLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+      return [];
+    }
+  }
 // get category or sub category products
 
 // add dummy data

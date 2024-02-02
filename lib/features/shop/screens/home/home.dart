@@ -54,15 +54,7 @@ class HomeScreen extends StatelessWidget {
                           showActionButton: false,
                           textColor: HColors.white,
                           onPressed: () {
-                            Get.to(() => AllProducts(
-                                  title: 'Popular Products',
-                             futureMethod: controller.fetchAllFeaturedProducts(),
-                             // pass query like this
-                             //     query: FirebaseFirestore.instance
-                               //       .collection("Products")
-                               //       .where("IsFeatured", isEqualTo: true)
-                              //        .limit(6),
-                                ));
+
                           },
                         ),
                         SizedBox(
@@ -95,8 +87,14 @@ class HomeScreen extends StatelessWidget {
                       title: 'Popular Products',
                       onPressed: () {
                         Get.to(() => AllProducts(
-                              title: "Popular",
-                            ));
+                          title: 'Popular Products',
+                          futureMethod: controller.fetchAllFeaturedProducts(),
+                          // pass query like this
+                          //     query: FirebaseFirestore.instance
+                          //       .collection("Products")
+                          //       .where("IsFeatured", isEqualTo: true)
+                          //        .limit(6),
+                        ));
                       },
                     ),
                     const SizedBox(

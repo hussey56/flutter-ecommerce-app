@@ -8,7 +8,7 @@ class HFirebaseExceptions implements Exception{
       case "":
         return"";
       default:
-        return "something went wrong with firebase";
+        return " firebase exception something went wrong with firebase";
     }
   }
 }

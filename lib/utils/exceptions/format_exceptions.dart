@@ -5,7 +5,7 @@ class HFormatExceptions implements Exception {
 
   const HFormatExceptions(
       [this.message =
-          "An unexpected format error is occured. Please check again later"]);
+          "An unexpected format error is occured. Please check again later, fromat"]);
 
   factory HFormatExceptions.fromMessage(String message) {
     return HFormatExceptions(message);

@@ -8,7 +8,7 @@ class HPlatformExceptions implements Exception{
       case "":
         return"";
       default:
-        return "something went wrong with firebase";
+        return "something went wrong with platform";
     }
   }
 }

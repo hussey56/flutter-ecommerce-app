@@ -113,153 +113,185 @@ class HDummyData {
   ];
 
   static final List<ProductModel> products = [
-
-  ProductModel
-
-  (
-
-  id: '001',
-  title: 'Nike Shoes Air Jordan',
-  stock: 15,
-  price: 135,
-  isFeatured: true,
-  thumbnail: HImages.redjordan,
-  description: 'Stylish brand new nike legacy shoes of michael jordan.',
-  brand: BrandModel(
-  id: '1',
-  image: HImages.nikeLogo,
-  name: 'Nike',
-  productsCount: 256,
-  isFeatured: true),
-  images: [
-  HImages.redjordan,
-  HImages.greenjordan,
-  HImages.blackjordan,
-  ],
-  salePrice: 30,
-  sku: '34EDRRE',
-  categoryId: '2',
-  productAttributes: [
-  ProductAttributesModel(
-  name: 'Color', values: ['Green', 'Red', 'Black']),
-  ProductAttributesModel(
-  name: 'Size', values: ['EU 45', 'EU 32', 'EU 44']),
-  ],
-  productVariations: [
-  ProductVariationModel(
-  id: '1',
-  stock: 34,
-  price: 134,
-  salePrice: 122.6,
-  image: HImages.greenjordan,
-  description:
-  'This is a product description please read it carefully',
-  attributeValues: {'Color': 'Green', 'Size': 'EU 45'}),
-  ProductVariationModel(
-  id: '2',
-  stock: 15,
-  price: 134,
-  image: HImages.blackjordan,
-  attributeValues: {'Color': 'Black', 'Size': 'EU 44'}),
-  ProductVariationModel(
-  id: '3',
-  stock: 0,
-  price: 234,
-  image: HImages.redjordan,
-  attributeValues: {'Color': 'Red', 'Size': 'EU 32'}),
-  ProductVariationModel(
-  id: '4',
-  stock: 23,
-  price: 434,
-  image: HImages.greenjordan,
-  attributeValues: {'Color': 'Green', 'Size': 'EU 32'}),
-  ProductVariationModel(
-  id: '5',
-  stock: 253,
-  price: 254,
-  image: HImages.redjordan,
-  attributeValues: {'Color': 'Red', 'Size': 'EU 44'}),
-  ProductVariationModel(
-  id: '6',
-  stock: 13,
-  price: 244,
-  image: HImages.blackjordan,
-  attributeValues: {'Color': 'Black', 'Size': 'EU 32'}),
-  ],
-  productType: ProductType.variable.toString()),
-  ProductModel(
-  id: "002",
-  title: "Iphone 14 Pro Max",
-  stock: 200,
-  price: 994,
-  salePrice: 990,
-  sku: '35EDRRE',
-  thumbnail: HImages.iphone,
-  isFeatured: true,
-  description: "New Iphone 14 pro max with box and air pods inside it.",
-  productAttributes: [
-  ProductAttributesModel(
-  name: 'Color', values: ['Blue', 'Red', 'Black']),
-  ],
-  brand: BrandModel(
-  id: '2',
-  image: HImages.appleLogo,
-  name: 'Apple',
-  productsCount: 156,
-  isFeatured: true
-  ),
-  categoryId: '6',
-  images: [
-  HImages.iphone,
-  HImages.iphone_black,
-  HImages.iphone_blue,
-  HImages.iphone_red
-  ],
-  productType: ProductType.single.toString()),
-  ProductModel(
-  id: '003',
-  title: 'Black T-shirt',
-  stock: 15,
-  price: 155,
-  isFeatured: true,
-  thumbnail: HImages.product5,
-  description: 'Stylish brand new nike black t-shirt for you amazing lifestyle.',
-  brand: BrandModel(
-  id: '1',
-  image: HImages.nikeLogo,
-  name: 'Nike',
-  productsCount: 256,
-  isFeatured: true),
-  images: [
-  HImages.product5,
-
-  ],
-  salePrice: 130,
-  sku: '3433EDRRE',
-  categoryId: '8',
-  productType: ProductType.single.toString()),
-  ProductModel(
-  id: '004',
-  title: 'Air Pods',
-  stock: 15,
-  price: 95,
-  isFeatured: true,
-  thumbnail: HImages.airpods_1,
-  description: 'Stylish brand new nike black t-shirt for you amazing lifestyle.',
-  brand: BrandModel(
-  id: '2',
-  image: HImages.appleLogo,
-  name: 'Apple',
-  productsCount: 156,
-  isFeatured: true),
-  images: [
-  HImages.airpods_1,
-  HImages.airpods_2
-  ],
-  salePrice: 67,
-  sku: '378EDRRE',
-  categoryId: '6',
-  productType: ProductType.single.toString()
-  ),
+    ProductModel(
+        id: '001',
+        title: 'Nike Shoes Air Jordan',
+        stock: 15,
+        price: 135,
+        isFeatured: true,
+        thumbnail: HImages.redjordan,
+        description: 'Stylish brand new nike legacy shoes of michael jordan.',
+        brand: BrandModel(
+            id: '1',
+            image: HImages.nikeLogo,
+            name: 'Nike',
+            productsCount: 256,
+            isFeatured: true),
+        images: [
+          HImages.redjordan,
+          HImages.greenjordan,
+          HImages.blackjordan,
+        ],
+        salePrice: 30,
+        sku: '34EDRRE',
+        categoryId: '2',
+        productAttributes: [
+          ProductAttributesModel(
+              name: 'Color', values: ['Green', 'Red', 'Black']),
+          ProductAttributesModel(
+              name: 'Size', values: ['EU 45', 'EU 32', 'EU 44']),
+        ],
+        productVariations: [
+          ProductVariationModel(
+              id: '1',
+              stock: 34,
+              price: 134,
+              salePrice: 122.6,
+              image: HImages.greenjordan,
+              description:
+                  'This is a product description please read it carefully',
+              attributeValues: {'Color': 'Green', 'Size': 'EU 45'}),
+          ProductVariationModel(
+              id: '2',
+              stock: 15,
+              price: 134,
+              image: HImages.blackjordan,
+              attributeValues: {'Color': 'Black', 'Size': 'EU 44'}),
+          ProductVariationModel(
+              id: '3',
+              stock: 0,
+              price: 234,
+              image: HImages.redjordan,
+              attributeValues: {'Color': 'Red', 'Size': 'EU 32'}),
+          ProductVariationModel(
+              id: '4',
+              stock: 23,
+              price: 434,
+              image: HImages.greenjordan,
+              attributeValues: {'Color': 'Green', 'Size': 'EU 32'}),
+          ProductVariationModel(
+              id: '5',
+              stock: 253,
+              price: 254,
+              image: HImages.redjordan,
+              attributeValues: {'Color': 'Red', 'Size': 'EU 44'}),
+          ProductVariationModel(
+              id: '6',
+              stock: 13,
+              price: 244,
+              image: HImages.blackjordan,
+              attributeValues: {'Color': 'Black', 'Size': 'EU 32'}),
+        ],
+        productType: ProductType.variable.toString()),
+    ProductModel(
+        id: "002",
+        title: "Iphone 14 Pro Max",
+        stock: 200,
+        price: 994,
+        salePrice: 990,
+        sku: '35EDRRE',
+        thumbnail: HImages.iphone,
+        isFeatured: true,
+        description: "New Iphone 14 pro max with box and air pods inside it.",
+        productAttributes: [
+          ProductAttributesModel(
+              name: 'Color', values: ['Blue', 'Red', 'Black']),
+        ],
+        brand: BrandModel(
+            id: '2',
+            image: HImages.appleLogo,
+            name: 'Apple',
+            productsCount: 156,
+            isFeatured: true),
+        categoryId: '6',
+        images: [
+          HImages.iphone,
+          HImages.iphone_black,
+          HImages.iphone_blue,
+          HImages.iphone_red
+        ],
+        productType: ProductType.single.toString()),
+    ProductModel(
+        id: '003',
+        title: 'Black T-shirt',
+        stock: 15,
+        price: 155,
+        isFeatured: true,
+        thumbnail: HImages.product5,
+        description:
+            'Stylish brand new nike black t-shirt for you amazing lifestyle.',
+        brand: BrandModel(
+            id: '1',
+            image: HImages.nikeLogo,
+            name: 'Nike',
+            productsCount: 256,
+            isFeatured: true),
+        images: [
+          HImages.product5,
+        ],
+        salePrice: 130,
+        sku: '3433EDRRE',
+        categoryId: '8',
+        productType: ProductType.single.toString()),
+    ProductModel(
+        id: '004',
+        title: 'Air Pods',
+        stock: 15,
+        price: 95,
+        isFeatured: true,
+        thumbnail: HImages.airpods_1,
+        description:
+            'Stylish brand new nike black t-shirt for you amazing lifestyle.',
+        brand: BrandModel(
+            id: '2',
+            image: HImages.appleLogo,
+            name: 'Apple',
+            productsCount: 156,
+            isFeatured: true),
+        images: [HImages.airpods_1, HImages.airpods_2],
+        salePrice: 67,
+        sku: '378EDRRE',
+        categoryId: '6',
+        productType: ProductType.single.toString()),
+    ProductModel(
+        id: '005',
+        title: 'Acer Laptop G34',
+        stock: 15,
+        price: 195,
+        isFeatured: true,
+        thumbnail: HImages.acer_laptop_1,
+        description:
+            'lorem ipsum is now a days great text description for demo purpose',
+        brand: BrandModel(
+            id: '3',
+            image: HImages.acer_logo,
+            name: 'Acer',
+            productsCount: 78,
+            isFeatured: true),
+        images: [HImages.acer_laptop_1, HImages.acer_laptop_2],
+        salePrice: 167,
+        sku: '3008EDRRE',
+        categoryId: '14',
+        productType: ProductType.single.toString()),
+    ProductModel(
+        id: '006',
+        title: 'Levis T-Shirt',
+        stock: 15,
+        price: 55,
+        isFeatured: true,
+        thumbnail: HImages.levis_tshirt_1,
+        description:
+            'lorem ipsum is now a days great text description for demo purpose',
+        brand: BrandModel(
+            id: '4',
+            image: HImages.levis_logo,
+            name: 'Levis',
+            productsCount: 299,
+            isFeatured: true),
+        images: [HImages.levis_tshirt_1, HImages.levis_tshirt_2],
+        salePrice: 47,
+        sku: '30rtEDRRE',
+        categoryId: '8',
+        productType: ProductType.single.toString()),
   ];
 }
