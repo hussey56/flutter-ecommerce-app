@@ -34,6 +34,21 @@ class ProductRepository extends GetxController {
       throw e.toString();
     }
   }
+  // get favorite products
+  Future<List<ProductModel>> getFavoriteProducts(List<String> products) async {
+    try {
+ final snapshot = await _db.collection("Products").where(FieldPath.documentId,whereIn: products).get();
+ return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } on SocketException catch (e) {
+      throw e.message!;
+    } on PlatformException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
 
 // get all featured products
   Future<List<ProductModel>> getAllFeaturedProducts() async {

@@ -3,6 +3,7 @@ import 'package:ecom3/common/widgets/product/product_cards/product_card_horizont
 import 'package:ecom3/common/widgets/text/section_heading.dart';
 import 'package:ecom3/utils/constants/image_strings.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
+import 'package:ecom3/utils/dummy/dummy.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
@@ -49,7 +50,7 @@ class SubCategoryScreen extends StatelessWidget {
                       itemCount: 4,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => const HProductCardHorizontal()),
+                        itemBuilder: (context, index) =>  HProductCardHorizontal(product: HDummyData.products[2],)),
                   )
                 ],
               )

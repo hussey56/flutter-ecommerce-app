@@ -7,6 +7,7 @@ import 'package:ecom3/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:ecom3/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecom3/utils/exceptions/format_exceptions.dart';
 import 'package:ecom3/utils/exceptions/platform_exceptions.dart';
+import 'package:ecom3/utils/local_storage/storage_utility.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -36,6 +37,7 @@ class AuthenticationRepository extends GetxController {
     final user = auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
+        await HLocalStorage.init(user.uid);
         Get.offAll(() => const NavigationMenu());
       } else {
         Get.offAll(() => VerifyEmailScreen(

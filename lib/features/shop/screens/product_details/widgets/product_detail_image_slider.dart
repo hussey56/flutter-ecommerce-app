@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecom3/common/widgets/product/favorite_icon/favorite_icon.dart';
 import 'package:ecom3/features/shop/controllers/product/image_controller.dart';
 import 'package:ecom3/features/shop/models/product_model.dart';
 import 'package:flutter/material.dart';
@@ -88,13 +89,10 @@ class ProductImageSlider extends StatelessWidget {
             ),
 
             // App bar
-            const HAppBar(
+             HAppBar(
               showBackArrow: true,
               actions: [
-                HCircularIcon(
-                  icon: Iconsax.heart5,
-                  color: Colors.red,
-                )
+             FavoriteIcon(productId: product.id,),
               ],
             )
           ],

@@ -1,5 +1,6 @@
 import 'package:ecom3/common/styles/shadows.dart';
 import 'package:ecom3/common/widgets/custom_shapes/container/rounded_container.dart';
+import 'package:ecom3/common/widgets/product/favorite_icon/favorite_icon.dart';
 import 'package:ecom3/common/widgets/text/price_text.dart';
 import 'package:ecom3/common/widgets/text/product_title.dart';
 import 'package:ecom3/features/shop/controllers/product/product_controller.dart';
@@ -77,13 +78,10 @@ class HProductCardVertical extends StatelessWidget {
                   ),
 
                   // Favorite Button
-                  const Positioned(
+                   Positioned(
                       top: 0,
                       right: 0,
-                      child: HCircularIcon(
-                        icon: Iconsax.heart5,
-                        color: Colors.red,
-                      ))
+                      child: FavoriteIcon(productId: product.id,))
                 ],
               ),
             ),

@@ -1,16 +1,23 @@
 import 'package:get_storage/get_storage.dart';
 
 class HLocalStorage {
-  static final HLocalStorage _instance = HLocalStorage._internal();
+  late final GetStorage _storage;
 
-  factory HLocalStorage() {
-    return _instance;
+static HLocalStorage? _instance;
+
+factory HLocalStorage.instance() {
+  _instance ??= HLocalStorage._internal();
+   return _instance!;
+}
+HLocalStorage._internal();
+
+
+// initialize user new storage bucket
+  static Future<void> init(String bucketName)async{
+    await GetStorage.init(bucketName);
+    _instance = HLocalStorage._internal();
+    _instance!._storage = GetStorage(bucketName);
   }
-
-  HLocalStorage._internal();
-
-  final _storage = GetStorage();
-
   // Generic method to save data
   Future<void> saveData<T>(String key, T value) async {
     await _storage.write(key, value);

@@ -1,6 +1,7 @@
 import 'package:ecom3/common/styles/shadows.dart';
 import 'package:ecom3/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecom3/common/widgets/images/rounded_image.dart';
+import 'package:ecom3/common/widgets/product/favorite_icon/favorite_icon.dart';
 import 'package:ecom3/common/widgets/text/brand_title_with_verified.dart';
 import 'package:ecom3/common/widgets/text/price_text.dart';
 import 'package:ecom3/common/widgets/text/product_title.dart';
@@ -17,8 +18,8 @@ import 'package:iconsax/iconsax.dart';
 import '../../icons/circular_icon.dart';
 
 class HProductCardHorizontal extends StatelessWidget {
-  const HProductCardHorizontal({super.key});
-
+  const HProductCardHorizontal({super.key, required this.product});
+final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
@@ -68,13 +69,10 @@ class HProductCardHorizontal extends StatelessWidget {
                     ),
 
                     // Favorite Button
-                    const Positioned(
+                     Positioned(
                         top: 0,
                         right: 0,
-                        child: HCircularIcon(
-                          icon: Iconsax.heart5,
-                          color: Colors.red,
-                        ))
+                        child:FavoriteIcon(productId: product.id,))
                   ]
               ),
             ),
