@@ -113,78 +113,9 @@ class HDummyData {
   ];
 
   static final List<ProductModel> products = [
+
     ProductModel(
-        id: '001',
-        title: 'Nike Shoes Air Jordan',
-        stock: 15,
-        price: 135,
-        isFeatured: true,
-        thumbnail: HImages.redjordan,
-        description: 'Stylish brand new nike legacy shoes of michael jordan.',
-        brand: BrandModel(
-            id: '1',
-            image: HImages.nikeLogo,
-            name: 'Nike',
-            productsCount: 256,
-            isFeatured: true),
-        images: [
-          HImages.redjordan,
-          HImages.greenjordan,
-          HImages.blackjordan,
-        ],
-        salePrice: 30,
-        sku: '34EDRRE',
-        categoryId: '2',
-        productAttributes: [
-          ProductAttributesModel(
-              name: 'Color', values: ['Green', 'Red', 'Black']),
-          ProductAttributesModel(
-              name: 'Size', values: ['EU 45', 'EU 32', 'EU 44']),
-        ],
-        productVariations: [
-          ProductVariationModel(
-              id: '1',
-              stock: 34,
-              price: 134,
-              salePrice: 122.6,
-              image: HImages.greenjordan,
-              description:
-                  'This is a product description please read it carefully',
-              attributeValues: {'Color': 'Green', 'Size': 'EU 45'}),
-          ProductVariationModel(
-              id: '2',
-              stock: 15,
-              price: 134,
-              image: HImages.blackjordan,
-              attributeValues: {'Color': 'Black', 'Size': 'EU 44'}),
-          ProductVariationModel(
-              id: '3',
-              stock: 0,
-              price: 234,
-              image: HImages.redjordan,
-              attributeValues: {'Color': 'Red', 'Size': 'EU 32'}),
-          ProductVariationModel(
-              id: '4',
-              stock: 23,
-              price: 434,
-              image: HImages.greenjordan,
-              attributeValues: {'Color': 'Green', 'Size': 'EU 32'}),
-          ProductVariationModel(
-              id: '5',
-              stock: 253,
-              price: 254,
-              image: HImages.redjordan,
-              attributeValues: {'Color': 'Red', 'Size': 'EU 44'}),
-          ProductVariationModel(
-              id: '6',
-              stock: 13,
-              price: 244,
-              image: HImages.blackjordan,
-              attributeValues: {'Color': 'Black', 'Size': 'EU 32'}),
-        ],
-        productType: ProductType.variable.toString()),
-    ProductModel(
-        id: "002",
+        id: "008",
         title: "Iphone 14 Pro Max",
         stock: 200,
         price: 994,
@@ -212,7 +143,7 @@ class HDummyData {
         ],
         productType: ProductType.single.toString()),
     ProductModel(
-        id: '003',
+        id: '009',
         title: 'Black T-shirt',
         stock: 15,
         price: 155,
@@ -231,10 +162,10 @@ class HDummyData {
         ],
         salePrice: 130,
         sku: '3433EDRRE',
-        categoryId: '8',
+        categoryId: '15',
         productType: ProductType.single.toString()),
     ProductModel(
-        id: '004',
+        id: '010',
         title: 'Air Pods',
         stock: 15,
         price: 95,
@@ -251,7 +182,7 @@ class HDummyData {
         images: [HImages.airpods_1, HImages.airpods_2],
         salePrice: 67,
         sku: '378EDRRE',
-        categoryId: '6',
+        categoryId: '15',
         productType: ProductType.single.toString()),
     ProductModel(
         id: '005',
@@ -291,7 +222,78 @@ class HDummyData {
         images: [HImages.levis_tshirt_1, HImages.levis_tshirt_2],
         salePrice: 47,
         sku: '30rtEDRRE',
-        categoryId: '8',
+        categoryId: '13',
         productType: ProductType.single.toString()),
   ];
 }
+//
+// ProductModel(
+// id: '001',
+// title: 'Nike Shoes Air Jordan',
+// stock: 15,
+// price: 135,
+// isFeatured: true,
+// thumbnail: HImages.redjordan,
+// description: 'Stylish brand new nike legacy shoes of michael jordan.',
+// brand: BrandModel(
+// id: '1',
+// image: HImages.nikeLogo,
+// name: 'Nike',
+// productsCount: 256,
+// isFeatured: true),
+// images: [
+// HImages.redjordan,
+// HImages.greenjordan,
+// HImages.blackjordan,
+// ],
+// salePrice: 30,
+// sku: '34EDRRE',
+// categoryId: '2',
+// productAttributes: [
+// ProductAttributesModel(
+// name: 'Color', values: ['Green', 'Red', 'Black']),
+// ProductAttributesModel(
+// name: 'Size', values: ['EU 45', 'EU 32', 'EU 44']),
+// ],
+// productVariations: [
+// ProductVariationModel(
+// id: '1',
+// stock: 34,
+// price: 134,
+// salePrice: 122.6,
+// image: HImages.greenjordan,
+// description:
+// 'This is a product description please read it carefully',
+// attributeValues: {'Color': 'Green', 'Size': 'EU 45'}),
+// ProductVariationModel(
+// id: '2',
+// stock: 15,
+// price: 134,
+// image: HImages.blackjordan,
+// attributeValues: {'Color': 'Black', 'Size': 'EU 44'}),
+// ProductVariationModel(
+// id: '3',
+// stock: 0,
+// price: 234,
+// image: HImages.redjordan,
+// attributeValues: {'Color': 'Red', 'Size': 'EU 32'}),
+// ProductVariationModel(
+// id: '4',
+// stock: 23,
+// price: 434,
+// image: HImages.greenjordan,
+// attributeValues: {'Color': 'Green', 'Size': 'EU 32'}),
+// ProductVariationModel(
+// id: '5',
+// stock: 253,
+// price: 254,
+// image: HImages.redjordan,
+// attributeValues: {'Color': 'Red', 'Size': 'EU 44'}),
+// ProductVariationModel(
+// id: '6',
+// stock: 13,
+// price: 244,
+// image: HImages.blackjordan,
+// attributeValues: {'Color': 'Black', 'Size': 'EU 32'}),
+// ],
+// productType: ProductType.variable.toString()),

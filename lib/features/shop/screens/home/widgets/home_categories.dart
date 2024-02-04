@@ -45,7 +45,7 @@ class HHomeCategories extends StatelessWidget {
                 image: category.image,
                 isNetworkImage: true,
                 backgroudColor: dark ? HColors.black : HColors.white,
-                onTap: () => Get.to(() => const SubCategoryScreen()),
+                onTap: () => Get.to(() =>  SubCategoryScreen(category:category)),
               );
             }),
       );

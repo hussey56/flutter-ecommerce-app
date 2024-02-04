@@ -171,7 +171,6 @@ class HProductCardVertical extends StatelessWidget {
                 )
               ],
             )
-            // 2. details
           ],
         ),
       ),

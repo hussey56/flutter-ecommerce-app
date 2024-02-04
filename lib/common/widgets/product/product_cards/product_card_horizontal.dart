@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../features/shop/controllers/product/product_controller.dart';
+import '../../../../utils/constants/enum.dart';
 import '../../icons/circular_icon.dart';
 
 class HProductCardHorizontal extends StatelessWidget {
@@ -22,9 +24,12 @@ class HProductCardHorizontal extends StatelessWidget {
 final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage =
+    controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () => Get.to(() => ProductDetail(product: ProductModel.empty(),)),
+      onTap: () => Get.to(() => ProductDetail(product: product,)),
       child: Container(
         width: 310,
         padding: const EdgeInsets.all(1),
@@ -47,11 +52,14 @@ final ProductModel product;
                       height: 120,
                       width: 120,
                       child: RoundedImage(
-                        imageUrl: HImages.product4,
+                        imageUrl: product.thumbnail,
                         ApplyImageRadius: true,
+                        isNetworkImage: true,
                       ),
                     ),
-                    Positioned(
+
+                    if(salePercentage != null)
+                      Positioned(
                       top: 12,
                       child: RoundedContainer(
                         radius: HSizes.sm,
@@ -59,7 +67,7 @@ final ProductModel product;
                         padding: const EdgeInsets.symmetric(
                             horizontal: HSizes.sm, vertical: HSizes.xs),
                         child: Text(
-                          '25%',
+                          '$salePercentage%',
                           style: Theme.of(context)
                               .textTheme
                               .labelLarge!
@@ -89,23 +97,48 @@ final ProductModel product;
                       crossAxisAlignment: CrossAxisAlignment.start,
 
                       children: [
-                        ProductTitle(title: "Nike Red Shoes OG",smallSize: true,),
+                        ProductTitle(title: product.title,smallSize: true,),
                         SizedBox(height: HSizes.spaceBtwItems/2,),
-                        BrandTitlewithVerifiedIcon(title: "Nike")
+                        BrandTitlewithVerifiedIcon(title: product.brand!.name)
                       ],
                     ),
 Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Flexible(child: ProductPriceText(price: "256.0")),
+                        //Price
+                        Flexible(
+                          child: Column(
+                            children: [
+                              if (product.productType ==
+                                  ProductType.single.toString() &&
+                                  product.salePrice > 0)
+                                Padding(
+                                    padding: EdgeInsets.only(left: HSizes.sm),
+                                    child: Text(
+                                      product.price.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium!
+                                          .apply(
+                                          decoration: TextDecoration.lineThrough),
+                                    )),
+                              Padding(
+                                padding: EdgeInsets.only(left: HSizes.sm),
+                                child: ProductPriceText(
+                                  price: controller.getProductPrice(product),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         Container(
                           decoration: const BoxDecoration(
                               color: HColors.dark,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(HSizes.cardRadiusMd),
-                                  bottomRight: Radius.circular(
-                                      HSizes.productImageRadius))),
+                                  bottomRight:
+                                  Radius.circular(HSizes.productImageRadius))),
                           child: const SizedBox(
                             height: HSizes.iconLg * 1.2,
                             width: HSizes.iconLg * 1.2,

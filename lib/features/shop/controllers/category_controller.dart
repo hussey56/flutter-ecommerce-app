@@ -46,17 +46,29 @@ class CategoryController extends GetxController {
 
 // load selected category data
   // get category products
-  Future<List<ProductModel>> getCategoryProduct({required String categoryId,int limit =4}) async {
+  Future<List<ProductModel>> getCategoryProduct(
+      {required String categoryId, int limit = 4}) async {
     try {
-      final products =
-      ProductRepository.instance.getProductsByCategory(categoryId: categoryId,limit: limit);
+      final products = ProductRepository.instance
+          .getProductsByCategory(categoryId: categoryId, limit: limit);
       return products;
     } catch (e) {
       HLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
       return [];
     }
   }
+
 // get category or sub category products
+  Future<List<CategoryModel>> getSubCategoryProduct(String categoryId) async {
+    try {
+      final subcategories =
+          await categoryRepository.getSubCategories(categoryId);
+      return subcategories;
+    } catch (e) {
+      HLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+      return [];
+    }
+  }
 
 // add dummy data
   Future<void> addDummyData() async {
