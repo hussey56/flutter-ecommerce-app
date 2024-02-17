@@ -17,6 +17,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../icons/circular_icon.dart';
 import '../../images/rounded_image.dart';
+import '../cart/add_to_cart_button.dart';
 
 class HProductCardVertical extends StatelessWidget {
   const HProductCardVertical({super.key, required this.product});
@@ -151,24 +152,7 @@ class HProductCardVertical extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                      color: HColors.dark,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(HSizes.cardRadiusMd),
-                          bottomRight:
-                              Radius.circular(HSizes.productImageRadius))),
-                  child: const SizedBox(
-                    height: HSizes.iconLg * 1.2,
-                    width: HSizes.iconLg * 1.2,
-                    child: Center(
-                      child: Icon(
-                        Iconsax.add,
-                        color: HColors.white,
-                      ),
-                    ),
-                  ),
-                )
+                ProductAddtoCartButton(product: product,)
               ],
             )
           ],
@@ -177,3 +161,5 @@ class HProductCardVertical extends StatelessWidget {
     );
   }
 }
+
+

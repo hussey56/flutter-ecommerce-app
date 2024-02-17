@@ -40,9 +40,6 @@ class StoreScreen extends StatelessWidget {
           ),
           actions: [
             HCartCounterIcon(
-                onPressed: () {
-                  productcontroller.addDummyData();
-                },
                 iconColor: dark ? HColors.white : HColors.dark)
           ],
         ),

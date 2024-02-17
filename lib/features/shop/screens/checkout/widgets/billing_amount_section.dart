@@ -1,4 +1,6 @@
+import 'package:ecom3/features/shop/controllers/product/cart_controller.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
+import 'package:ecom3/utils/helpers/price_calculator.dart';
 import 'package:flutter/material.dart';
 
 class BillingAmountWidget extends StatelessWidget {
@@ -6,6 +8,8 @@ class BillingAmountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = CartController.instance;
+    final subtotal = controller.totalCartPrice.value;
     return Column(
       children: [
         // Sub Total
@@ -17,12 +21,14 @@ class BillingAmountWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             Text(
-              '\$256.0',
+              '\$$subtotal',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),
-        const SizedBox(height: HSizes.spaceBtwItems /2,),
+        const SizedBox(
+          height: HSizes.spaceBtwItems / 2,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -31,12 +37,14 @@ class BillingAmountWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             Text(
-              '\$16.0',
+              '\$${TPricingCalculator.calculateShippingCost(subtotal, 'US')}',
               style: Theme.of(context).textTheme.labelLarge,
             ),
           ],
         ),
-        const SizedBox(height: HSizes.spaceBtwItems /2,),
+        const SizedBox(
+          height: HSizes.spaceBtwItems / 2,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -45,12 +53,14 @@ class BillingAmountWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             Text(
-              '\$20.0',
+              '\$${TPricingCalculator.calculateTax(subtotal, 'US')}',
               style: Theme.of(context).textTheme.labelLarge,
             ),
           ],
         ),
-        const SizedBox(height: HSizes.spaceBtwItems /2,),
+        const SizedBox(
+          height: HSizes.spaceBtwItems / 2,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -59,7 +69,7 @@ class BillingAmountWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             Text(
-              '\$292.0',
+              '\$${TPricingCalculator.calculatedTotalPrice(subtotal, 'US')}',
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ],

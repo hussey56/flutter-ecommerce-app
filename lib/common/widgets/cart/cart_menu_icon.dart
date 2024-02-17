@@ -1,23 +1,25 @@
+import 'package:ecom3/features/shop/controllers/product/cart_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../features/shop/screens/cart/cart.dart';
 import '../../../utils/constants/colors.dart';
 class HCartCounterIcon extends StatelessWidget {
   const HCartCounterIcon({
     super.key,
-    required this.onPressed,
     required this.iconColor,
   });
 
-  final VoidCallback onPressed;
   final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CartController());
     return Stack(
       children: [
         IconButton(
-          onPressed: onPressed,
+          onPressed: () =>  Get.to(()=> const CartScreen()),
           icon: const Icon(Iconsax.shopping_bag),
           color: iconColor,
         ),
@@ -31,12 +33,14 @@ class HCartCounterIcon extends StatelessWidget {
               borderRadius: BorderRadius.circular(100),
             ),
             child: Center(
-              child: Text(
-                '2',
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .apply(color: HColors.white, fontSizeFactor: 0.8),
+              child: Obx(
+                ()=> Text(
+                  controller.noOfCartItems.value.toString(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .apply(color: HColors.white, fontSizeFactor: 0.8),
+                ),
               ),
             ),
           ),

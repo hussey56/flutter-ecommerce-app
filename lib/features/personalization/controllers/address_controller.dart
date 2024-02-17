@@ -1,7 +1,12 @@
 import 'package:ecom3/common/widgets/loaders/myloaders.dart';
+import 'package:ecom3/common/widgets/text/section_heading.dart';
 import 'package:ecom3/data/repositories/address/address_repository.dart';
 import 'package:ecom3/features/personalization/models/address_model.dart';
+import 'package:ecom3/features/personalization/screens/address/add_new_address.dart';
+import 'package:ecom3/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:ecom3/utils/constants/image_strings.dart';
+import 'package:ecom3/utils/constants/sizes.dart';
+import 'package:ecom3/utils/helpers/cloud_helper_function.dart';
 import 'package:ecom3/utils/helpers/network_manger.dart';
 import 'package:ecom3/utils/popups/full_screen_loader.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +18,8 @@ class AddressController extends GetxController {
   static AddressController get instance => Get.find();
   final Rx<AddressModel> selectedAddress = AddressModel.empty().obs;
   final addressRepository = Get.put(AddressRepository());
-RxBool refreshData = true.obs;
+  RxBool refreshData = true.obs;
+
   // form variables
   final name = TextEditingController();
   final phoneNumber = TextEditingController();
@@ -42,7 +48,9 @@ RxBool refreshData = true.obs;
     try {
       Get.defaultDialog(
         title: '',
-        onWillPop: ()async{return false;},
+        onWillPop: () async {
+          return false;
+        },
         barrierDismissible: false,
         backgroundColor: Colors.transparent,
         content: const HCircularLoader(),
@@ -86,8 +94,7 @@ RxBool refreshData = true.obs;
           city: city.text.trim(),
           state: state.text.trim(),
           postalCode: postalCode.text.trim(),
-          country: country.text.trim()
-      );
+          country: country.text.trim());
       final id = await addressRepository.addAddress(address);
       address.id = id;
 
@@ -95,7 +102,9 @@ RxBool refreshData = true.obs;
 
       HFullScreenLoader.stopLoading();
 
-      HLoaders.successSnackBar(title: "Congratulations",message: "Uor address has been added successfully");
+      HLoaders.successSnackBar(
+          title: "Congratulations",
+          message: "Uor address has been added successfully");
 
       refreshData.toggle();
 
@@ -103,10 +112,11 @@ RxBool refreshData = true.obs;
       Navigator.of(Get.context!).pop();
     } catch (e) {
       HFullScreenLoader.stopLoading();
-      HLoaders.errorSnackBar(title: "Address Not Found",message: e.toString());
+      HLoaders.errorSnackBar(title: "Address Not Found", message: e.toString());
     }
   }
-  void resetFormfields(){
+
+  void resetFormfields() {
     name.clear();
     phoneNumber.clear();
     street.clear();
@@ -115,5 +125,52 @@ RxBool refreshData = true.obs;
     state.clear();
     country.clear();
     addressFormKey.currentState?.reset();
+  }
+
+  Future<dynamic> selectShippingAddress(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (_) => SingleChildScrollView(
+          child: Container(
+                padding: const EdgeInsets.all(HSizes.lg),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const HSectionHeading(
+                      title: "Select Address",
+                      showActionButton: false,
+                    ),
+                    FutureBuilder(
+                        future: allUserAddress(),
+                        builder: (_, snapshot) {
+                          final response =
+                              HCloudHelperFuction.checkMultipleRecordState(
+                                  snapshot: snapshot);
+                          if (response != null) return response;
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (_, index) => SingleAddress(
+                                onTap: () async {
+                                  await selectAddress(snapshot.data![index]);
+                                  Get.back();
+                                },
+                                address: snapshot.data![index]),
+                          );
+                        }),
+                    const SizedBox(
+                      height: HSizes.defaultSpace * 2,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () => Get.to(() => const AddNewAddress()),
+                        child: const Text("Add New Address"),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+        ));
   }
 }

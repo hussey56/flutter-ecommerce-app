@@ -13,7 +13,6 @@ enum PaymentMethod {
   applePay,
   visa,
   masterCard,
-  creditCard,
   paystack,
   razorPay,
   paytm

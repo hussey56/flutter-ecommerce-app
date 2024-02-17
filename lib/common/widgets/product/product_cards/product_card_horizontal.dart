@@ -1,6 +1,7 @@
 import 'package:ecom3/common/styles/shadows.dart';
 import 'package:ecom3/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecom3/common/widgets/images/rounded_image.dart';
+import 'package:ecom3/common/widgets/product/cart/add_to_cart_button.dart';
 import 'package:ecom3/common/widgets/product/favorite_icon/favorite_icon.dart';
 import 'package:ecom3/common/widgets/text/brand_title_with_verified.dart';
 import 'package:ecom3/common/widgets/text/price_text.dart';
@@ -132,24 +133,7 @@ Spacer(),
                             ],
                           ),
                         ),
-                        Container(
-                          decoration: const BoxDecoration(
-                              color: HColors.dark,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(HSizes.cardRadiusMd),
-                                  bottomRight:
-                                  Radius.circular(HSizes.productImageRadius))),
-                          child: const SizedBox(
-                            height: HSizes.iconLg * 1.2,
-                            width: HSizes.iconLg * 1.2,
-                            child: Center(
-                              child: Icon(
-                                Iconsax.add,
-                                color: HColors.white,
-                              ),
-                            ),
-                          ),
-                        )
+                        ProductAddtoCartButton(product: product)
                       ],
                     )
                   ],
