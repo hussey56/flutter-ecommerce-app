@@ -1,7 +1,10 @@
 import 'package:ecom3/bottom_navigation_bar.dart';
 import 'package:ecom3/common/widgets/appbar/appbar.dart';
 import 'package:ecom3/common/widgets/custom_shapes/container/rounded_container.dart';
+import 'package:ecom3/common/widgets/loaders/myloaders.dart';
 import 'package:ecom3/common/widgets/success_screen/success_screen.dart';
+import 'package:ecom3/features/shop/controllers/order_controller.dart';
+import 'package:ecom3/features/shop/controllers/product/cart_controller.dart';
 import 'package:ecom3/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:ecom3/features/shop/screens/checkout/widgets/billing_address_section.dart';
 import 'package:ecom3/features/shop/screens/checkout/widgets/billing_amount_section.dart';
@@ -10,6 +13,7 @@ import 'package:ecom3/utils/constants/colors.dart';
 import 'package:ecom3/utils/constants/image_strings.dart';
 import 'package:ecom3/utils/constants/sizes.dart';
 import 'package:ecom3/utils/helpers/helper_functions.dart';
+import 'package:ecom3/utils/helpers/price_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +24,10 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = CartController.instance;
+    final subtotal = controller.totalCartPrice.value;
+    final total = TPricingCalculator.calculatedTotalPrice(subtotal, "US");
+    final orderController = Get.put(OrderController());
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: HAppBar(
@@ -79,15 +87,12 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(HSizes.defaultSpace),
         child: ElevatedButton(
-          onPressed: () {
-            Get.to(() => SuccessScreen(
-                  image: HImages.staticSuccessIllustration,
-                  title: 'Payment Successful',
-                  subTitle: 'Your item will be Shipped soon.',
-                  onPressed: () => Get.offAll(() => const NavigationMenu()),
-                ));
-          },
-          child: Text('Checkout \$256.0'),
+          onPressed: subtotal > 0
+              ? () => orderController.processOrder(subtotal)
+              : () => HLoaders.warningSnackBar(
+                  title: "Empty Cart",
+                  message: 'Add items in the cart in order to proceed'),
+          child: Text('Checkout \$$total'),
         ),
       ),
     );
