@@ -51,3 +51,10 @@ This app is a multi-vendor e-commerce platform built using Flutter for its cross
 *   **Firestore:** Firebase Firestore is used to store and manage user data, product information, orders, and other app data.
 *   **Cloud Storage:** Firebase Cloud Storage can be used to store product images and other media.
 *   **Cloud Functions:** Custom server-side logic can be implemented using Firebase Cloud Functions.
+
+  :hammer_and_wrench: Languages and Tools :
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/flutter/flutter-original.svg" title="Flutter" alt="Flutter" width="60" height="60"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/firebase/firebase-plain-wordmark.svg" title="Firebase" alt="Firebase" width="60" height="60"/>&nbsp;
+</div>
+
